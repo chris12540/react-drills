@@ -1,21 +1,42 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+	constructor() {
+		super();
+		this.state = {
+			todo: ["Finish this app"],
+			task: ""
+		};
+	}
+
+	addTask = () => {
+		const temp = this.state.todo.slice();
+		temp.push(this.state.task);
+		this.setState({
+			todo: temp,
+			task: ""
+		});
+	};
+
+	render() {
+		const { todo, task } = this.state;
+
+		return (
+			<div className="App">
+				<h4>My TODO List</h4>
+				<input
+					type="text"
+					value={task}
+					onChange={e => {
+						this.setState({ task: e.target.value });
+					}}
+				/>
+				<button onClick={this.addTask}>Add Task</button>
+				<Todo list={todo} />
+			</div>
+		);
+	}
 }
 
 export default App;
